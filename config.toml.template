@@ -1,0 +1,86 @@
+# Find your API key at https://toggl.com/app/profile
+ApiKey = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+
+# If you wish to override the timezone used when displaying times, uncomment
+# the following line.
+# Timezone = "Europe/Oslo"
+
+# Number of weeks before the current one to be retrieved. Must be so low that
+# the API limit of 1000 time entries is not hit. The program will exit with a
+# warning in that case.
+WeeksBeforeCurrent = 7
+
+# Number of weeks after the current one to be displayed. Looks better.
+WeeksAfterCurrent = 1
+
+# Streaks are the different streaks that are tracked using Toggl. Examples of
+# streaks are "Log 2 hours on Toggl every day", or "Log 15 minutes of Anki
+# every day". The time entries for a streak are those entries where various
+# constraints are satisfied. The currently supported constraints are:
+#
+#   * workspaceId must match (optional)
+#   * projectId must match (optional)
+#   * description must match regular expression (optional)
+#
+# If all constraints are disabled, the streak will consider every time entry,
+# regardless of project or name.
+#
+# A streak is defined by adding a new entry to
+# the map of streaks.  The identifier for a streak must be unique. E.g.,
+# [streaks.anki] must only be defined once. It has the following attributes:
+#
+#   name string (default="")
+#   description string (default="")
+#   minutesPerDayMin int (default=0)
+#   minutesPerDayMax int (default=0)
+#   regexp string (default="")
+#
+# name: The name of a streak.
+#
+# description: The description for a streak.
+#
+# minutesPerDayMin: The streak continues if the the matching time entries' total
+# duration for a day is greater or equal to minutesPerDayMin.
+#
+# minutesPerDayMax: The streak continues if the matching time entries' total
+# duration for a day is less than minutesPerDayMax. This can be used for e.g.,
+# procrastination or smoking. If minutesPerDayMax=0, it is ignored.
+#
+# workspaceId: If workspaceId is defined, only time entries with the same
+# workspaceId are considered.  Comment out to disable filtering by workspace.
+# WorkspaceId is found by going to https://toggl.com/app/#projects and copying
+# the first number in the URL.  E.g.
+# https://toggl.com/app/projects/532957/list/page/1 -> 532957.
+#
+# projectId: If projectId is defined, only time entries with the same projectId
+# are considered. Comment out to disable filtering by project.  ProjectId is
+# found by going to https://toggl.com/app/#projects, clicking on a project and
+# then taking the final number in the URL. E.g.
+# https://toggl.com/app/projects/532957/edit/4261927 -> 4261927.
+#
+# regexp: Only entries where the description matches the following regexp will
+# be added to the streak. Uncomment the following line to enable this feature.
+# Regexes are RE2-style and do not support advanced features such as
+# backreferences. Examples:
+#     'Anki' matches only "Anki".
+#     '^Math' matches "Math", "Math homework" but not "Did some Math".
+
+[streaks]
+
+    [streaks.anki]
+    name = "Anki"
+    description = "Use Anki 15 minutes every day"
+    minutesPerDayMin = 15
+    # minutesPerDayMax = 0
+    # workspaceId = 532957
+    # projectId = 0
+    regexp = 'Anki'
+
+    [streak.toggl]
+    name = "Toggl"
+    description = "Use Toggl for 2 hours every day"
+    minutesPerDayMin = 120
+    # minutesPerDayMax = 0
+    # workspaceId = 0
+    # projectId = 0
+    # regex = ''
